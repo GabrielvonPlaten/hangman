@@ -23,7 +23,7 @@ function init() {
     var timerSeconds = document.getElementById('seconds');
     var timerDecimals = document.getElementById('decimals');
     var interval;
-    
+
 
     //Start function
     startGameButton.addEventListener('click', startGameFunction, false);
