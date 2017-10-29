@@ -23,7 +23,7 @@ function init() {
     var timerSeconds = document.getElementById('seconds');
     var timerDecimals = document.getElementById('decimals');
     var interval;
-    
+
 
     //Start function
     startGameButton.addEventListener('click', startGameFunction, false);
@@ -32,6 +32,7 @@ function init() {
         for (var i = 0; i < alphabetBtns.length; i++) {
             alphabetBtns[i].removeAttribute('disabled');
         }
+        document.getElementById('time').style.display= 'block';
         selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
         letterBoxes();
         clearInterval(interval);
@@ -115,6 +116,7 @@ function init() {
                 var hangmanImg = document.getElementById('hangman');
                 hangmanImg.src = 'images/h6.png';
                 document.getElementById('message').innerHTML = 'You have died. Bitter and alone.';
+                document.getElementById('time').innerText = 'The correct word was ' + selectedWord;
             }
         }, 1000);
     }
