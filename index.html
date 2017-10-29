@@ -12,21 +12,27 @@
         <article id="parent">
             <h2>Today is your trial.</h2>
             <p>Prove yourself innocent by guessing the correct word.</p>
+            <!-- The hangman images -->
             <img id="hangman" src="images/h0.png" alt="hangman">
         </article>
         
+        <!-- The boxes which will appear after starting the game -->
         <section id="letterBoxes">
-
             <ul id="letterBoxesUl">
         </section>
+        <!-- Message after winning or losing the game -->
         <h1 id="message"></h1>
+
+        <!-- Game timer -->
         <p id="time"><span id="seconds">00</span>
         <span id="semi">:</span>
         <span id="decimals">00</span></p>
 
+        <!-- Start & restart game buttons -->
         <button class="startbtn btn--stripe start" id="startGameBtn">Start</button>
         <button class="restbtn btn--stripe restart" onclick="restartGameButton()">Restart</button>
 
+        <!-- Letter buttons -->
         <section id="gameBoard">
             <ul id="letterButtons">
                 <li><button class="btn btn--stripe" type="button" disabled  value="A">A</button></li>
