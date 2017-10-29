@@ -77,6 +77,7 @@ function init() {
                 correctAnswerNumber++;
                 if (correctAnswerNumber === selectedWord.length) {
                     setTimeout(function () {
+                        document.getElementById('time').style.display= 'none';
                         clearInterval(interval);
                         document.getElementById('message').innerHTML = 'NOT GUILTY! You have proven your innocence.';
                     });
@@ -95,8 +96,10 @@ function init() {
             for (var f = 0; f < alphabetBtns.length; f++) {
                 alphabetBtns[f].setAttribute('disabled', 'disabled');
             }
+            //Message after guessing all wrong
             clearInterval(interval);
             document.getElementById('message').innerHTML = 'You have died. Bitter and alone.';
+            document.getElementById('time').innerText = 'The correct word was ' + selectedWord;
         }
     }
 
