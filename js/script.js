@@ -1,29 +1,120 @@
 // Globala variabler
+window.onload = init;
+var wordList = ['DEVELOPER', 'MICROSOFT', 'GALAXY', 'SILICON'];
 
-var wordList; // Lista med spelets alla ord
-var selectedWord; // Ett av orden valt av en slumpgenerator
-var letterBoxes; //Rutorna där bokstäverna ska stå
-var hangmanImg; //Bild som kommer vid fel svar
-var hangmanImgNr; // Vilken av bilderna som kommer upp beroende på hur många fel du gjort
-var msgElem; // Ger meddelande när spelet är över
-var startGameBtn; // Knappen du startar spelet med
-var letterButtons; // Knapparna för bokstäverna
-var startTime; // Mäter tiden
+var correctAnswerNumber = 0;
+var hangmanImg;
+var hangmanImgNumber = 0;
 
-// Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
-// Initiering av globala variabler samt koppling av funktioner till knapparna.
-function init() {} // End init
+ //Restart game Button
+function restartGameButton() {
+    location.reload();
+}
 
-window.onload = init; // Se till att init aktiveras då sidan är inladdad
+function init() {
 
-// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
+    var startGameButton = document.getElementById('startGameBtn');
 
-// Funktion som slumpar fram ett ord
- 
-// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
+    var letterButtons = document.getElementById('letterButtons');
+    var alphabetBtns = document.querySelectorAll('.btn');
 
-// Funktion som körs när du trycker på bokstäverna och gissar bokstav
+    //Timer variables
+    var timerSeconds = document.getElementById('seconds');
+    var timerDecimals = document.getElementById('decimals');
+    var seconds = 00;
+    var decimals = 00;
+    var interval;
 
-// Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
+    //Start function
+    startGameButton.addEventListener('click', startGameFunction);
+    function startGameFunction(event) {
+        for (var i = 0; i < alphabetBtns.length; i++) {
+            alphabetBtns[i].removeAttribute('disabled');
+        }
+        selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
+        letterBoxes();
+        clearInterval(interval);
+        interval = setInterval(Timer, 10);
+        event.target.setAttribute('disabled', 'disabled');
+    }
 
-// Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
+
+    //The function which generates the letter boxes
+    function letterBoxes() {
+        for (var i = 0; i < selectedWord.length; i++) {
+            var box = document.createElement('li');
+            box.innerHTML = '<input disabled id=boxList' + i + '>';
+            letterBoxesUl.appendChild(box);
+        }
+    }
+
+    //Check if your answer is correct
+    function checkAnswer(event) {
+        var answer = event.target.value;
+        if (selectedWord.indexOf(answer) >= 0) {
+            correctAnswer(answer);
+        } else {
+            incorrectAnswer();
+        }
+    }
+
+    //This will send the answer to checkAnswer once a letter button is cliced.
+    for (var j = 0; j < alphabetBtns.length; j++) {
+        alphabetBtns[j].addEventListener('click', checkAnswer);
+        alphabetBtns[j].addEventListener('click', function (event) {
+            event.target.setAttribute('disabled', 'disabled');
+        });
+    }
+
+    //Correct answer & winning function
+    function correctAnswer(answer) {
+        for (var j = 0; j < selectedWord.length; j++) {
+            if (selectedWord[j] == answer) {
+                document.getElementById('boxList' + j++).value = answer;
+                correctAnswerNumber++;
+                if (correctAnswerNumber === selectedWord.length) {
+                    setTimeout(function () {
+                        clearInterval(interval);
+                        alert('NOT GUILTY! You have proven your innocence.');
+                    }, 200);
+                }
+            }
+        }
+    }
+
+    //Wrong answer function
+    function incorrectAnswer() {
+        hangmanImgNumber++;
+        var hangmanImg = document.getElementById('hangman');
+        hangmanImg.src = 'images/h' + hangmanImgNumber + '.png';
+
+        if (hangmanImgNumber === 6) {
+            for (var f = 0; f < alphabetBtns.length; f++) {
+                alphabetBtns[f].setAttribute('disabled', 'disabled');
+            }
+            clearInterval(interval);
+            alert('You have died. Bitter and alone');
+        }
+    }
+
+    //Game timer
+    function Timer() {
+        decimals++;
+
+        if (decimals < 9) {
+            timerDecimals.innerHTML = '0' + decimals;
+        }
+        if (decimals > 9) {
+            timerDecimals.innerHTML = decimals;
+        }
+        if (decimals > 99) {
+            seconds++;
+            timerSeconds.innerHTML = '0' + seconds;
+            decimals = 0;
+            timerDecimals.innerHTML = '0' + 0;
+        }
+        if (seconds > 9) {
+            timerSeconds.innerHTML = seconds;
+        }
+    }
+}
