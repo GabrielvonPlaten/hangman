@@ -117,6 +117,6 @@ function init() {
         }
         if (seconds > 9) {
             timerSeconds.innerHTML = seconds;
-        }
+        }fgdfgdf
     }
 }
