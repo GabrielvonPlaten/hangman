@@ -75,7 +75,7 @@ function init() {
                 if (correctAnswerNumber === selectedWord.length) {
                     setTimeout(function () {
                         clearInterval(interval);
-                        alert('NOT GUILTY! You have proven your innocence.');
+                        document.getElementById('message').innerHTML = 'NOT GUILTY! You have proven your innocence.';
                     }, 200);
                 }
             }
@@ -93,7 +93,7 @@ function init() {
                 alphabetBtns[f].setAttribute('disabled', 'disabled');
             }
             clearInterval(interval);
-            alert('You have died. Bitter and alone');
+            document.getElementById('message').innerHTML = 'You have died. Bitter and alone';
         }
     }
 

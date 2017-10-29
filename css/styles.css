@@ -76,15 +76,21 @@ ul {
 }
 
 footer {
-  background-color: silver;
-  border-top: 1px solid #666;
+  background-color: #222;
+  padding: 12px;
+  border-top: 1px solid #eee;
   margin-top: 20px;
   padding-top: 30px;
-  color: #fff;
+  color: #eee;
   font-size: 1.25em;
   width: 100%;
   flex: none;
   text-align: center;
+}
+
+#hangman {
+  height: 15%;
+  width: 15%;
 }
 
 #startGameBtn {
@@ -110,13 +116,22 @@ footer {
   min-width: 84px;
 }
 
+#letterBoxesUl {
+  text-align: center;
+}
+
 #letterBoxes li {
   display: inline-flex;
 }
 
+#time {
+  font-size: 2em;
+  text-align: center;
+}
+
 #letterBoxes input {
-  border: 1px solid #666;
-  color: #666;
+  border: 1px solid rgb(80, 80, 80);
+  color: rgb(0, 0, 0);
   font-size: 1.5em;
   font-weight: bold;
   line-height: 2em;
@@ -127,11 +142,10 @@ footer {
 }
 
 #message {
-  padding-top: 20px;
-  font-size: 1.5em;
+  text-align: center
 }
 
-.btn {
+.btn, .start, .restart {
   -moz-user-select: text;
   background-color: #fff;
   background: transparent;
@@ -150,6 +164,11 @@ footer {
   padding: 16px 36px 22px;
   text-decoration: none;
   text-transform: uppercase;
+  transition: 0.15s ease-in;
+}
+
+.restart {
+  margin-top: 5px;
 }
 
 .btn::-moz-focus-inner {
@@ -167,20 +186,6 @@ footer {
   display: block;
   height: 7px;
   width: 100%;
-  background-image: -webkit-repeating-linear-gradient(
-    45deg,
-    #666,
-    #666 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  background-image: repeating-linear-gradient(
-    45deg,
-    #666,
-    #666 1px,
-    transparent 2px,
-    transparent 5px
-  );
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-top: 1px solid #666;
@@ -188,6 +193,7 @@ footer {
   left: 0;
   bottom: 0;
   background-size: 7px 7px;
+  transition: 0.15s ease-in;
 }
 
 .btn--stripe:disabled {
@@ -200,23 +206,12 @@ footer {
   background-color: #666;
   color: #fff;
   border-color: #000;
+  transition: 0.15s ease-in;
 }
 
 .btn--stripe:disabled:after,
 .btn--stripe:hover:after {
-  background-image: -webkit-repeating-linear-gradient(
-    45deg,
-    #fff,
-    #fff 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  background-image: repeating-linear-gradient(
-    45deg,
-    #fff,
-    #fff 1px,
-    transparent 2px,
-    transparent 5px
-  );
   border-top: 1px solid #000;
+  transition: 0.15s ease-in;
 }
+
