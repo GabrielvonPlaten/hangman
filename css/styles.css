@@ -128,6 +128,9 @@ footer {
   font-size: 2em;
   text-align: center;
 }
+#countdowntimer {
+  color: black;
+}
 
 #letterBoxes input {
   border: 1px solid rgb(80, 80, 80);

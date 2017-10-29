@@ -6,6 +6,7 @@ var correctAnswerNumber = 0;
 var hangmanImg;
 var hangmanImgNumber = 0;
 
+
 //Restart game Button
 function restartGameButton() {
     location.reload();
@@ -21,9 +22,8 @@ function init() {
     //Timer variables
     var timerSeconds = document.getElementById('seconds');
     var timerDecimals = document.getElementById('decimals');
-    var seconds = 00;
-    var decimals = 00;
     var interval;
+    
 
     //Start function
     startGameButton.addEventListener('click', startGameFunction, false);
@@ -35,7 +35,7 @@ function init() {
         selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
         letterBoxes();
         clearInterval(interval);
-        interval = setInterval(Timer, 10);
+        Timer();
         this.style.display = 'none';
 
     }
@@ -89,7 +89,7 @@ function init() {
         hangmanImgNumber++;
         var hangmanImg = document.getElementById('hangman');
         hangmanImg.src = 'images/h' + hangmanImgNumber + '.png';
-
+        //Disables all buttons
         if (hangmanImgNumber === 6) {
             for (var f = 0; f < alphabetBtns.length; f++) {
                 alphabetBtns[f].setAttribute('disabled', 'disabled');
@@ -99,24 +99,23 @@ function init() {
         }
     }
 
-    //Game timer
+    //Game timer. Once it reaches 0 the game ends.
     function Timer() {
-        decimals++;
-
-        if (decimals < 9) {
-            timerDecimals.innerHTML = '0' + decimals;
-        }
-        if (decimals > 9) {
-            timerDecimals.innerHTML = decimals;
-        }
-        if (decimals > 99) {
-            seconds++;
-            timerSeconds.innerHTML = '0' + seconds;
-            decimals = 0;
-            timerDecimals.innerHTML = '0' + 0;
-        }
-        if (seconds > 9) {
-            timerSeconds.innerHTML = seconds;
-        }fgdfgdf
+        var timeleft = 30;
+        var downloadTimer = setInterval(function () {
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft;
+            //Disables all buttons
+            if (timeleft <= 0) {
+                for (var f = 0; f < alphabetBtns.length; f++) {
+                    alphabetBtns[f].setAttribute('disabled', 'disabled');
+                }
+                //Message after it reaches 0
+                clearInterval(downloadTimer);
+                var hangmanImg = document.getElementById('hangman');
+                hangmanImg.src = 'images/h6.png';
+                document.getElementById('message').innerHTML = 'You have died. Bitter and alone.';
+            }
+        }, 1000);
     }
 }
