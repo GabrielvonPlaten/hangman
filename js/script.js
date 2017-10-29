@@ -6,13 +6,13 @@ var correctAnswerNumber = 0;
 var hangmanImg;
 var hangmanImgNumber = 0;
 
- //Restart game Button
+//Restart game Button
 function restartGameButton() {
     location.reload();
 }
 
 function init() {
-
+    //Start game button
     var startGameButton = document.getElementById('startGameBtn');
 
     var letterButtons = document.getElementById('letterButtons');
@@ -26,7 +26,8 @@ function init() {
     var interval;
 
     //Start function
-    startGameButton.addEventListener('click', startGameFunction);
+    startGameButton.addEventListener('click', startGameFunction, false);
+
     function startGameFunction(event) {
         for (var i = 0; i < alphabetBtns.length; i++) {
             alphabetBtns[i].removeAttribute('disabled');
@@ -35,7 +36,8 @@ function init() {
         letterBoxes();
         clearInterval(interval);
         interval = setInterval(Timer, 10);
-        event.target.setAttribute('disabled', 'disabled');
+        this.style.display = 'none';
+
     }
 
 
@@ -48,6 +50,14 @@ function init() {
         }
     }
 
+    //This will send the answer to checkAnswer once a letter button is cliced.
+    for (var j = 0; j < alphabetBtns.length; j++) {
+        alphabetBtns[j].addEventListener('click', checkAnswer);
+        alphabetBtns[j].addEventListener('click', function (event) {
+            event.target.setAttribute('disabled', 'disabled');
+        });
+    }
+
     //Check if your answer is correct
     function checkAnswer(event) {
         var answer = event.target.value;
@@ -56,14 +66,6 @@ function init() {
         } else {
             incorrectAnswer();
         }
-    }
-
-    //This will send the answer to checkAnswer once a letter button is cliced.
-    for (var j = 0; j < alphabetBtns.length; j++) {
-        alphabetBtns[j].addEventListener('click', checkAnswer);
-        alphabetBtns[j].addEventListener('click', function (event) {
-            event.target.setAttribute('disabled', 'disabled');
-        });
     }
 
     //Correct answer & winning function
@@ -76,7 +78,7 @@ function init() {
                     setTimeout(function () {
                         clearInterval(interval);
                         document.getElementById('message').innerHTML = 'NOT GUILTY! You have proven your innocence.';
-                    }, 200);
+                    });
                 }
             }
         }
@@ -93,7 +95,7 @@ function init() {
                 alphabetBtns[f].setAttribute('disabled', 'disabled');
             }
             clearInterval(interval);
-            document.getElementById('message').innerHTML = 'You have died. Bitter and alone';
+            document.getElementById('message').innerHTML = 'You have died. Bitter and alone.';
         }
     }
 
